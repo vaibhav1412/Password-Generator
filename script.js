@@ -16,7 +16,7 @@ const Symbols="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 
 let password="";
 let passwordLength=10;
-let checkCount = 1;
+let checkCount = 0;
 
 handelslider();
 
@@ -45,11 +45,11 @@ function generateRandomNum()
 };
 function generateLowerCase()
 {
-    return String.fromCharCode(getRandomInt(97,123))
+    return String.fromCharCode(getRandomInt(97,122))
 };
 function generateUpperCase()
 {
-    return String.fromCharCode(getRandomInt(65,971))
+    return String.fromCharCode(getRandomInt(65,90))
 };
 function generateSymol()
 {
@@ -96,3 +96,104 @@ async function copyContent(){
         copyMsg.classList.remove("active")
     },2000)
 }
+
+function handleCheckBoxChange(){
+    checkCount=0;
+    allCheckBox.forEach((checkbox)=>{
+
+        if(checkbox.checked){
+            checkCount++;
+        }
+    })
+
+    if(passwordLength<checkCount)
+    {
+        passwordLength=checkCount;
+        handelslider();
+    }
+}
+//Fisher–Yates method
+function shufflePassword(array)
+{
+    for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // random index from 0..i
+    [array[i], array[j]] = [array[j], array[i]];   // swap
+    }
+
+    let str = "";
+
+    array.forEach((item, index) => {
+      str += item;
+    });
+
+    return str;
+}
+
+allCheckBox.forEach((checkbox)=>{
+    checkbox.addEventListener("change", handleCheckBoxChange)
+})
+
+inputSlider.addEventListener("input",(e)=>
+{
+    passwordLength=e.target.value;
+    handelslider();
+})
+
+copyBtn.addEventListener("click",()=>{
+    
+   if(passwordDisplay.value) copyContent();
+})
+
+generateButtton.addEventListener("click",()=>{
+    if (checkCount<=0) return
+
+    if(passwordLength<checkCount)
+    {
+        passwordLength=checkCount;
+        handelslider()
+    }
+
+    // let start find new pass
+
+    //remove old
+
+    password=""
+
+    // lets put stuffs mentuioned by checkbox
+
+    let funcArray=[]
+    if(upperCheck.checked)
+    {
+        funcArray.push(generateUpperCase)
+    }
+    if(lowerCheck.checked)
+    {
+        funcArray.push(generateLowerCase)
+    }
+    if(numbers.checked)
+    {
+        funcArray.push(generateRandomNum)
+    }
+    if(symbol.checked)
+    {
+        funcArray.push(generateSymol)
+    }
+
+    for(let i=0; i<funcArray.length; i++)
+    {
+        password+=funcArray[i]()
+    }
+    for(let i=0; i<passwordLength-funcArray.length; i++)
+    {
+        let randInd = getRandomInt(0,funcArray.length-1);
+        password+=funcArray[randInd]();
+    }
+
+    // shuffle password
+
+    password=shufflePassword(Array.from(password));
+    passwordDisplay.value=password;
+
+    calcStreingth()
+
+})

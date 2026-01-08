@@ -1,0 +1,154 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#141e30,#243b55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+/* main card */
+.container{
+    width:380px;
+    background:#0f172a;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* title */
+.container h1{
+    text-align:center;
+    margin-bottom:20px;
+    letter-spacing:1px;
+}
+
+/* password display */
+.display-container{
+    position:relative;
+    background:#020617;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    padding:12px;
+    margin-bottom:20px;
+}
+
+.display{
+    flex:1;
+    background:transparent;
+    border:none;
+    color:#22c55e;
+    font-size:1.2rem;
+    outline:none;
+}
+
+.display::placeholder{
+    color:#64748b;
+}
+
+/* copy button */
+.display-container button{
+    background:none;
+    border:none;
+    cursor:pointer;
+    position:relative;
+}
+
+[data-copyMsg]{
+    position:absolute;
+    top:-30px;
+    right:0;
+    background:#22c55e;
+    color:black;
+    padding:4px 10px;
+    border-radius:8px;
+    font-size:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:0.3s;
+}
+
+[data-copyMsg].active{
+    opacity:1;
+}
+
+/* input area */
+.input-container{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* length row */
+.length-container{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+/* slider */
+.slider{
+    -webkit-appearance:none;
+    height:6px;
+    border-radius:5px;
+    background:#1e293b;
+    outline:none;
+    cursor:pointer;
+}
+
+.slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    height:18px;
+    width:18px;
+    background:#22c55e;
+    border-radius:50%;
+}
+
+/* checkbox */
+.input-container div{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+}
+
+/* strength */
+.strength-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+[data-indicator]{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:red;
+    box-shadow:0 0 8px currentColor;
+}
+
+/* generate button */
+.generate-Button{
+    margin-top:10px;
+    background:#22c55e;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.generate-Button:hover{
+    background:#16a34a;
+    transform:scale(1.03);
+}
